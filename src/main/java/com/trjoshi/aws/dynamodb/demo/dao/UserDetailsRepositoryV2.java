@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
@@ -29,7 +30,7 @@ public class UserDetailsRepositoryV2 {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(UserDetailsRepositoryV2.class);
 
-	AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
+	AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("http://localhost:8000", "eu-west-1")).build();
 	DynamoDB dynamoDb = new DynamoDB(client);
 
 	public UserDetails getUserDetails(String key) {
